@@ -15,7 +15,7 @@ public class Book {
 	}
 	public void setBookId(int bookId) {
 			this.bookId = bookId;
-	}
+	} 
 	public String getBookName() {
 		return bookName;
 	}

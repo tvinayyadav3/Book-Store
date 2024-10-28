@@ -2,7 +2,10 @@ package bookstore;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BookManager {
@@ -32,6 +35,22 @@ public class BookManager {
 		ps.setString(2, name);
 		ps.execute();
 		con.commit();
+	}
+	
+	public static List<Book> getBookDetails(Connection con) throws SQLException
+	{
+		List<Book> l=new ArrayList<>();
+		Statement s=con.createStatement();
+		ResultSet rs=s.executeQuery("Select * from books");
+		while(rs.next())
+		{
+			int id=rs.getInt(1);
+			String name=rs.getString(2);
+			double price=rs.getDouble(3);
+			Book obj=new Book(id, name, price);
+			l.add(obj);
+		}
 		con.commit();
+		return l;
 	}
 }
